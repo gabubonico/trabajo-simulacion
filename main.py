@@ -56,12 +56,12 @@ def main():
     print("la muestra ha sido generada")
 
     # muestra los valores por terminal
-    if sys.argv[1] == "--verbose":
+    if len(sys.argv) > 1 and sys.argv[1] == "--verbose":
         print(valores)
-
+    
     # Contar la frecuencia de cada valor
     frequencies = {}
-    for value in data:
+    for value in valores:
         frequencies[value] = frequencies.get(value, 0) + 1
 
     # Guardar los datos en un archivo
