@@ -16,7 +16,7 @@ def bin(p):
     # ejecutamos 100 pruebas de bernoulli
     for _ in range(100):
         if ber(p):
-            ++exitos
+            exitos += 1
 
     # devolvemos el numero de exitos
     return exitos
@@ -51,12 +51,13 @@ def main():
 
     # generamos la muestra de valores
     print("generando muestra...")
-    valores = valores_binomial(n, p)
+    valores = sorted(valores_binomial(n, p))
 
     print("la muestra ha sido generada")
 
     # muestra los valores por terminal
     if len(sys.argv) > 1 and sys.argv[1] == "--verbose":
+        print("los valores son estos: ")
         print(valores)
     
     # Contar la frecuencia de cada valor
@@ -65,9 +66,11 @@ def main():
         frequencies[value] = frequencies.get(value, 0) + 1
 
     # Guardar los datos en un archivo
-    with open('datos.txt', 'w') as file:
+    with open('binomial.txt', 'w') as file:
         for value, frequency in frequencies.items():
             file.write(f"{value} {frequency}\n")
 
+    print("los datos de la distribucion binomial han sido guardados en el fichero binomial.txt")
+    input("usa 'gnuplot binomial.txt' para generar el historiograma (ENTER )")
 if __name__ == "__main__":
     main()
