@@ -1,6 +1,5 @@
 import random
-import matplotlib.pyplot as plt
-import numpy as np
+import sys
 
 def ber(p):
     if random.random() <= p:
@@ -56,18 +55,19 @@ def main():
 
     print("la muestra ha sido generada")
 
-    # calcular la frecuencia de cada valor
-    frecuencias = np.bincount(valores)
+    # muestra los valores por terminal
+    if sys.argv[1] == "--verbose":
+        print(valores)
 
-    # crear el gráfico de barras
-    plt.bar(range(len(frecuencias)), frecuencias)
+    # Contar la frecuencia de cada valor
+    frequencies = {}
+    for value in data:
+        frequencies[value] = frequencies.get(value, 0) + 1
 
-    # etiquetas de los ejes
-    plt.xlabel('Valores')
-    plt.ylabel('Frecuencia')
-
-    # exportamos el historiograma
-    plt.savefig('histograma.png')
+    # Guardar los datos en un archivo
+    with open('datos.txt', 'w') as file:
+        for value, frequency in frequencies.items():
+            file.write(f"{value} {frequency}\n")
 
 if __name__ == "__main__":
     main()
