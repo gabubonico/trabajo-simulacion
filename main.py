@@ -1,12 +1,14 @@
 import random
+import matplotlib.pyplot as plt
+import numpy as np
 
 def ber(p):
     if random.random() <= p:
         # pasa la prueba
-        return true
+        return True
     else:
         # no pasa la prueba
-        return false
+        return False
 
 def bin(p):
     # variable que recoge el numero de exitos
@@ -53,6 +55,19 @@ def main():
     valores = valores_binomial(n, p)
 
     print("la muestra ha sido generada")
+
+    # calcular la frecuencia de cada valor
+    frecuencias = np.bincount(valores)
+
+    # crear el gráfico de barras
+    plt.bar(range(len(frecuencias)), frecuencias)
+
+    # etiquetas de los ejes
+    plt.xlabel('Valores')
+    plt.ylabel('Frecuencia')
+
+    # exportamos el historiograma
+    plt.savefig('histograma.png')
 
 if __name__ == "__main__":
     main()
