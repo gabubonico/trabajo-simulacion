@@ -3,7 +3,7 @@
 Este es mi trabajo de simulacion de una distribucion binomial
 
 ## dependencias
-python3
+python3 (+ la libreria scipy)
 gnuplot
 
 ## explicacion

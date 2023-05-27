@@ -2,6 +2,7 @@ import random
 import sys
 import statistics
 import math
+from scipy.stats import binom
 
 # variables de bernoulli
 def ber(p):
@@ -76,6 +77,8 @@ def main():
     while p < 0 or p > 1:
         float(input("error. a continuacion, inserte la probabilidad p: "))
 
+    ## apartado 1 ##
+
     # generamos la muestra de valores
     print("generando muestra...")
     valores = sorted(valores_binomial(n, p))
@@ -87,6 +90,8 @@ def main():
         print("los valores son estos: ")
         print(valores)
     
+    ## apartado 2 ##
+
     # Contar la frecuencia de cada valor
     frequencies = {}
     for value in valores:
@@ -100,6 +105,50 @@ def main():
     print("los datos de la distribucion binomial han sido guardados en el fichero binomial.txt")
     input("usa 'gnuplot binomial.p' para generar el historiograma (ENTER para continuar)")
 
+    ## apartado 3 ##
+
+    print("a continuacion, introduzca dos numeros para crear un intervalo para la muestra")
+
+    # recogemos los valores
+    a = input("limite inferior a: ")
+    b = input("limite superior b: ")
+    if not b > a:
+        print("error en los intervalos")
+        a = input("limite inferior a: ")
+        b = input("limite superior b: ")
+
+    # calculamos las 4 frecuencias relativas
+    val_inter_1 = [x for x in valores if a < x < b]
+    frec_relativa_1 = len(val_inter_1) / n
+
+    val_inter_2 = [x for x in valores if a <= x < b]
+    frec_relativa_2 = len(val_inter_2) / n
+
+    val_inter_3 = [x for x in valores if a <= x <= b]
+    frec_relativa_3 = len(val_inter_3) / n
+
+    val_inter_4 = [x for x in valores if a < x <= b]
+    frec_relativa_4 = len(val_inter_4) / n
+
+    # calculamos las probabilidades reales
+    prob_real_1 = binom.pmf(b - 1, n, p) - binom.pmf(a + 1, n, p)
+    prob_real_2 = binom.pmf(b - 1, n, p) - binom.pmf(a, n, p)
+    prob_real_3 = binom.pmf(b, n, p) - binom.pmf(a, n, p)
+    prob_real_4 = binom.pmf(b, n, p) - binom.pmf(a + 1, n, p)
+
+    # mostramos los resultados
+    print("frecuencia relativa 1",frec_relativa_1)
+    print("probabilidad real 1",prob_real_1)
+    print("frecuencia relativa 2",frec_relativa_2)
+    print("probabilidad real 2",prob_real_2)
+    print("frecuencia relativa 3",frec_relativa_3)
+    print("probabilidad real 3",prob_real_3)
+    print("frecuencia relativa 4",frec_relativa_4)
+    print("probabilidad real 4",prob_real_4)
+    
+
+    ## apartado 4 ##
+
     # estimacion puntual de la media y la varianza
     m = media(valores)
     v = varianza(valores)
@@ -109,6 +158,8 @@ def main():
     print("la varianza de esta muestra es: ")
     print(v)
     input("presione ENTER para continuar")
+
+    ## apartado 5 ##
 
     # generacion de la muestra Y
     print("generamos la muestra Y (teorema central del límite)")
