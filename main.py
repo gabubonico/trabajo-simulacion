@@ -1,6 +1,7 @@
 import random
 import sys
 import statistics
+import math
 
 # variables de bernoulli
 def ber(p):
@@ -50,6 +51,18 @@ def varianza(X):
     var = statistics.variance(X)
     return var
 
+# calcular la muestra Y
+def valores_y(X, m, v):
+    Y = []
+
+    # iteramos por todos los valores de X
+    for x in X:
+        y = (x - m)/math.sqrt(v)
+        Y.append(y)
+
+    return Y
+
+######### MAIN ##########
 def main():
     input("Bienvenido a mi trabajo de simulacion (presione ENTER para continuar)")
 
@@ -96,6 +109,28 @@ def main():
     print("la varianza de esta muestra es: ")
     print(v)
     input("presione ENTER para continuar")
+
+    # generacion de la muestra Y
+    print("generamos la muestra Y (teorema central del límite)")
+    valores_Y = sorted(valores_y(valores, m, v))
+    print("la muestra ha sido generada")
+
+    # muestra los valores por terminal si recibe el argumento --verbose
+    if len(sys.argv) > 1 and sys.argv[1] == "--verbose":
+        print("los valores son estos: ")
+        print(valores_Y)
+
+    # calculamos que la media y la desviacion tipica
+    print("La media de la muestra Y es: ")
+    print(media(valores_Y))
+    print("la desviacion estandar de la muestra Y es: ")
+    print(math.sqrt(varianza(valores_Y)))
+    print("advertencia: puede ser que los valores no sean exactamente 0 y 1 respectivamente")
+    print("esto puede ser debido a los errores de coma flotante")
+
+    # termina el programa
+    input("ha concluido el programa (presiona ENTER para terminar)")
+
 
 if __name__ == "__main__":
     main()
