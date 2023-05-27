@@ -63,7 +63,7 @@ def valores_y(X, m, v):
 
     return Y
 
-######### MAIN ##########
+########## MAIN ##########
 def main():
     input("Bienvenido a mi trabajo de simulacion (presione ENTER para continuar)")
 
@@ -110,12 +110,12 @@ def main():
     print("a continuacion, introduzca dos numeros para crear un intervalo para la muestra")
 
     # recogemos los valores
-    a = input("limite inferior a: ")
-    b = input("limite superior b: ")
+    a = int(input("limite inferior a: "))
+    b = int(input("limite superior b: "))
     if not b > a:
         print("error en los intervalos")
-        a = input("limite inferior a: ")
-        b = input("limite superior b: ")
+        a = int(input("limite inferior a: "))
+        b = int(input("limite superior b: "))
 
     # calculamos las 4 frecuencias relativas
     val_inter_1 = [x for x in valores if a < x < b]
@@ -131,20 +131,24 @@ def main():
     frec_relativa_4 = len(val_inter_4) / n
 
     # calculamos las probabilidades reales
-    prob_real_1 = binom.pmf(b - 1, n, p) - binom.pmf(a + 1, n, p)
-    prob_real_2 = binom.pmf(b - 1, n, p) - binom.pmf(a, n, p)
-    prob_real_3 = binom.pmf(b, n, p) - binom.pmf(a, n, p)
-    prob_real_4 = binom.pmf(b, n, p) - binom.pmf(a + 1, n, p)
+    prob_real_1 = binom.cdf(b - 1, 100, p) - binom.cdf(a + 1, 100, p)
+    prob_real_2 = binom.cdf(b - 1, 100, p) - binom.cdf(a, 100, p)
+    prob_real_3 = binom.cdf(b, 100, p) - binom.cdf(a, 100, p)
+    prob_real_4 = binom.cdf(b, 100, p) - binom.cdf(a + 1, 100, p)
 
     # mostramos los resultados
     print("frecuencia relativa 1",frec_relativa_1)
     print("probabilidad real 1",prob_real_1)
+    print("error:",abs(prob_real_1 - frec_relativa_1))
     print("frecuencia relativa 2",frec_relativa_2)
     print("probabilidad real 2",prob_real_2)
+    print("error:",abs(prob_real_2 - frec_relativa_2))
     print("frecuencia relativa 3",frec_relativa_3)
     print("probabilidad real 3",prob_real_3)
+    print("error:",abs(prob_real_3 - frec_relativa_3))
     print("frecuencia relativa 4",frec_relativa_4)
     print("probabilidad real 4",prob_real_4)
+    print("error:",abs(prob_real_4 - frec_relativa_4))
     
 
     ## apartado 4 ##
