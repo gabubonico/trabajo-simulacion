@@ -123,7 +123,7 @@ def main():
     # Contar la frecuencia de cada valor
     frequencies_Y = {}
     for value in valores_Y:
-        frequencies[value] = frequencies.get(value, 0) + 1
+        frequencies_Y[value] = frequencies_Y.get(value, 0) + 1
 
     # Guardar los datos en un archivo
     with open('limite.txt', 'w') as file:
