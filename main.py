@@ -120,6 +120,19 @@ def main():
         print("los valores son estos: ")
         print(valores_Y)
 
+    # Contar la frecuencia de cada valor
+    frequencies_Y = {}
+    for value in valores_Y:
+        frequencies[value] = frequencies.get(value, 0) + 1
+
+    # Guardar los datos en un archivo
+    with open('limite.txt', 'w') as file:
+        for value, frequency in frequencies_Y.items():
+            file.write(f"{value} {frequency}\n")
+
+    print("los datos del teorema central del limite han sido guardados en el fichero binomial.txt")
+    input("usa 'gnuplot limite.p' para generar el historiograma (ENTER para continuar)")
+
     # calculamos que la media y la desviacion tipica
     print("La media de la muestra Y es: ")
     print(media(valores_Y))
@@ -131,6 +144,6 @@ def main():
     # termina el programa
     input("ha concluido el programa (presiona ENTER para terminar)")
 
-
+# punto de entrada del programa
 if __name__ == "__main__":
     main()
